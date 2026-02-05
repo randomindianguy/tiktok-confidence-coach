@@ -1,0 +1,3 @@
+# Railway uses Nixpacks - this tells it to install ffmpeg
+[phases.setup]
+aptPkgs = ["ffmpeg"]
