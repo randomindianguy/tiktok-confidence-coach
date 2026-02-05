@@ -197,57 +197,6 @@ If it works: **You're done!** 🎉
 
 ---
 
-## 🎬 For Your TikTok OA Video
-
-### Recording Your 5-Min Demo
-
-**Best Flow:**
-
-1. **0:00-0:45 — Problem**
-   - Open your deployed URL
-   - Scroll through problem section
-   - Show the 95% stat, explain the freeze moment
-
-2. **0:45-2:30 — Live Demo**
-   - Scroll to "Try It Yourself"
-   - Record yourself talking (deliberately pause)
-   - Click Analyze
-   - **Show real results** (not scripted!)
-
-3. **2:30-3:15 — Technical Stack**
-   - Scroll to Architecture section
-   - Explain: Local Whisper → Pause Detection → Claude prompts
-   - Mention why Practice Mode first (validate hypothesis)
-
-4. **3:15-4:00 — Challenges**
-   - Latency (streaming API goal: <2s)
-   - Prompt quality (context + tone)
-   - Privacy (local transcription, minimal data sent)
-
-5. **4:00-5:00 — Vision**
-   - Scroll to Strategy section
-   - Explain: Democratize creation, target the other 95%
-   - Growth loops (confidence flywheel, data flywheel)
-   - Roadmap: Practice → Real-time → Full creator suite
-
-**Pro Tips:**
-- Use the deployed URL (not localhost) for credibility
-- Actually do a real recording (shows confidence)
-- Point out specific sections as you scroll
-- Mention specific metrics (FaT, NaT, NSM, 2x goal)
-
----
-
-## 📊 What to Share with TikTok
-
-In your OA submission:
-
-1. **Video:** 5-min screen recording (Google Drive link)
-2. **Live Demo:** Your Vercel URL (so they can try it)
-3. **Code:** GitHub repo link (optional, but impressive)
-
----
-
 ## 🐛 Troubleshooting
 
 ### Backend Issues
