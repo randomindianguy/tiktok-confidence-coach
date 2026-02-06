@@ -11,11 +11,11 @@ Stack: Local Whisper (free) + Claude API (better conversational tone than GPT-4)
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import anthropic
+from openai import OpenAI
 from dotenv import load_dotenv
 import os
 import tempfile
 import subprocess
-import whisper
 import time
 
 load_dotenv()
@@ -23,8 +23,8 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-# Initialize Claude client
 claude = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+whisper_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Load Whisper model (runs locally - no API needed)
 print("Loading Whisper model (this may take a minute first time)...")
@@ -35,55 +35,41 @@ print("Whisper model loaded!")
 # === CORE FUNCTIONS ===
 
 def transcribe_audio(audio_path: str) -> dict:
-    """
-    Transcribe audio using LOCAL Whisper with word-level timestamps.
-    Returns transcript text and word timings for pause detection.
-
-    Why local Whisper vs. API:
-    - Free (no per-minute cost)
-    - Privacy (audio never leaves server)
-    - Works offline
-    """
-    # Convert to wav for better Whisper performance
     wav_path = audio_path.replace(".webm", ".wav")
 
     result = subprocess.run([
         "ffmpeg", "-y",
         "-i", audio_path,
-        "-vn",
-        "-acodec", "pcm_s16le",
-        "-ar", "16000",
-        "-ac", "1",
+        "-vn", "-acodec", "pcm_s16le",
+        "-ar", "16000", "-ac", "1",
         wav_path
     ], capture_output=True, text=True)
 
     if result.returncode != 0:
         raise Exception(f"Audio conversion failed: {result.stderr}")
 
-    # Transcribe with local Whisper
-    result = whisper_model.transcribe(
-        wav_path,
-        word_timestamps=True,
-        verbose=False
-    )
+    with open(wav_path, "rb") as audio_file:
+        result = whisper_client.audio.transcriptions.create(
+            model="whisper-1",
+            file=audio_file,
+            response_format="verbose_json",
+            timestamp_granularities=["word"]
+        )
 
-    # Extract word-level data
     words = []
-    for segment in result["segments"]:
-        if "words" in segment:
-            for word in segment["words"]:
-                words.append({
-                    "word": word["word"],
-                    "start": word["start"],
-                    "end": word["end"]
-                })
+    if hasattr(result, 'words') and result.words:
+        for w in result.words:
+            words.append({
+                "word": w.word,
+                "start": w.start,
+                "end": w.end
+            })
 
-    # Clean up wav file
     if os.path.exists(wav_path):
         os.remove(wav_path)
 
     return {
-        "text": result["text"],
+        "text": result.text,
         "words": words
     }
 
