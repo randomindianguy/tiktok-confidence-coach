@@ -5,7 +5,7 @@ Helps first-time TikTok creators overcome the "freeze" moment
 Target Segment: 0-1K followers, high watch time, never posted or abandoned 3+ recordings
 Core Insight: High motivation, low ability at the critical moment
 
-Stack: Local Whisper (free) + Claude API (better conversational tone than GPT-4)
+Stack: OpenAI Whisper (free) + Claude API (better conversational tone than GPT-4)
 """
 
 from flask import Flask, request, jsonify
@@ -25,11 +25,6 @@ CORS(app)
 
 claude = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 whisper_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-# Load Whisper model (runs locally - no API needed)
-print("Loading Whisper model (this may take a minute first time)...")
-whisper_model = whisper.load_model("base")
-print("Whisper model loaded!")
 
 
 # === CORE FUNCTIONS ===
