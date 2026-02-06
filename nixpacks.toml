@@ -1,5 +1,0 @@
-# Railway will auto-detect Python from requirements.txt
-# We just need to add ffmpeg as a system package
-
-[phases.setup]
-aptPkgs = ["ffmpeg"]
