@@ -2,5 +2,4 @@ flask
 flask-cors
 anthropic
 python-dotenv
-openai-whisper
-torch
+openai
