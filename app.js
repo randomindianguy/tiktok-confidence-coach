@@ -4,7 +4,7 @@
  */
 
 // === CONFIGURATION ===
-const API_URL = 'http://localhost:5001'; // Change this to your Railway URL after deployment
+const API_URL = 'https://web-production-7f499.up.railway.app';
 
 // === DOM ELEMENTS ===
 const preview = document.getElementById('preview');
