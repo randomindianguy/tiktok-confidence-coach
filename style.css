@@ -1097,12 +1097,12 @@ footer {
 .video-container {
     position: relative;
     width: 100%;
-    max-width: 640px;
+    max-width: 360px;       
+    aspect-ratio: 9/16;
     margin: 0 auto 20px;
     background: #1a1a1a;
     border-radius: 16px;
     overflow: hidden;
-    aspect-ratio: 16/9;
 }
 
 .video-container video {
@@ -1276,6 +1276,9 @@ footer {
 
 .video-panel video {
     width: 100%;
+    max-width: 360px;
+    aspect-ratio: 9/16;
+    object-fit: cover;
     border-radius: 12px;
     background: #000;
     margin-bottom: 12px;
